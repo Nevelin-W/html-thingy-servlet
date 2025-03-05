@@ -31,12 +31,6 @@ jobs:
       - name: Build with Maven
         run: mvn clean package
 
-      # - name: Configure AWS Credentials
-      #   uses: aws-actions/configure-aws-credentials@v2
-      #   with:
-      #     role-to-assume: ${{ secrets.AWS_ASSUME_ROLE_ARN }}
-      #     aws-region: ${{ env.AWS_REGION }}
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
@@ -48,13 +42,13 @@ jobs:
         run: |
           aws s3 cp target/*.war s3://${{ env.BUCKET_NAME }}/webapp-${{ github.sha }}.war
 
-      # - name: Deploy to Elastic Beanstalk
-      #   run: |
-      #     aws elasticbeanstalk create-application-version \
-      #       --application-name ${{ env.BEANSTALK_APP_NAME }} \
-      #       --version-label ${{ github.sha }} \
-      #       --source-bundle S3Bucket=${{ env.BUCKET_NAME }},S3Key=webapp-${{ github.sha }}.war
+      - name: Deploy to Elastic Beanstalk
+        run: |
+          aws elasticbeanstalk create-application-version \
+            --application-name ${{ env.BEANSTALK_APP_NAME }} \
+            --version-label ${{ github.sha }} \
+            --source-bundle S3Bucket=${{ env.BUCKET_NAME }},S3Key=webapp-${{ github.sha }}.war
 
-      #     aws elasticbeanstalk update-environment \
-      #       --environment-name ${{ env.BEANSTALK_ENV_NAME }} \
-      #       --version-label ${{ github.sha }}
+          aws elasticbeanstalk update-environment \
+            --environment-name ${{ env.BEANSTALK_ENV_NAME }} \
+            --version-label ${{ github.sha }}
