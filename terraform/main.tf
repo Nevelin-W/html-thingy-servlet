@@ -44,6 +44,7 @@ resource "aws_elastic_beanstalk_environment" "webapp_env" {
   name                = "servlet-webapp-env"
   application         = aws_elastic_beanstalk_application.webapp.name
   solution_stack_name = "64bit Amazon Linux 2 v4.7.7 running Tomcat 9 Corretto 11"
+  instance_profile = aws_iam_instance_profile.eb_instance_profile.name
 
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
@@ -51,6 +52,35 @@ resource "aws_elastic_beanstalk_environment" "webapp_env" {
     value     = "t3.micro"
   }
 }
+
+resource "aws_iam_role" "eb_instance_role" {
+  name               = "elasticbeanstalk-instance-role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action    = "sts:AssumeRole"
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+        Effect    = "Allow"
+        Sid       = ""
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "eb_instance_policy_attachment" {
+  role       = aws_iam_role.eb_instance_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkWebTier"
+}
+
+resource "aws_iam_instance_profile" "eb_instance_profile" {
+  name = "elasticbeanstalk-instance-profile"
+  role = aws_iam_role.eb_instance_role.name
+}
+
+
 
 
 # Outputs
