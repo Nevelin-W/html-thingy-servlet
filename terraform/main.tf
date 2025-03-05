@@ -43,7 +43,7 @@ resource "aws_elastic_beanstalk_application" "webapp" {
 resource "aws_elastic_beanstalk_environment" "webapp_env" {
   name                = "servlet-webapp-env"
   application         = aws_elastic_beanstalk_application.webapp.name
-  solution_stack_name = "64bit Amazon Linux 2 v3.3.5 running Tomcat 8.5 Corretto 11"
+  solution_stack_name = "64bit Amazon Linux 2 v4.7.7 running Tomcat 9 Corretto 11"
 
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
