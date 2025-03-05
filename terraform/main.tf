@@ -44,12 +44,17 @@ resource "aws_elastic_beanstalk_environment" "webapp_env" {
   name                = "servlet-webapp-env"
   application         = aws_elastic_beanstalk_application.webapp.name
   solution_stack_name = "64bit Amazon Linux 2 v4.7.7 running Tomcat 9 Corretto 11"
-  instance_profile = aws_iam_instance_profile.eb_instance_profile.name
 
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "InstanceType"
     value     = "t3.micro"
+  }
+
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name      = "IamInstanceProfile"
+    value     = aws_iam_instance_profile.eb_instance_profile.name
   }
 }
 
