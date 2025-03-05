@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  AWS_REGION: us-east-1
+  AWS_REGION: eu-central-1
   BUCKET_NAME: your-webapp-artifacts-bucket
   BEANSTALK_APP_NAME: servlet-webapp
   BEANSTALK_ENV_NAME: servlet-webapp-env
