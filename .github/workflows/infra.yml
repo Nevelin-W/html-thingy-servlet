@@ -1,0 +1,60 @@
+name: infra
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Choose terraform action'
+        required: true
+        default: 'plan'
+        type: choice
+        options:
+          - plan
+          - apply
+          - destroy
+
+env:
+  AWS_REGION: eu-central-1
+  TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}
+  
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.11.0
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ./terraform
+        env:
+          TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Terraform Validate
+        run: terraform validate
+        working-directory: ./terraform
+        env:
+          TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Terraform Plan
+        if: ${{ github.event.inputs.action == 'plan' }}
+        run: terraform plan -var="region=${{ env.AWS_REGION }}"
+        working-directory: ./terraform
+
+      # APPLY
+      - name: Terraform Apply
+        if: ${{ github.event.inputs.action == 'apply' }}
+        run: terraform apply -auto-approve -var="region=${{ env.AWS_REGION }}"
+        working-directory: ./terraform
+
+
+      # DESTROY
+      - name: Terraform Destroy
+        if: ${{ github.event.inputs.action == 'destroy' }}
+        run: terraform destroy -auto-approve -var="region=${{ env.AWS_REGION }}"
+        working-directory: ./terraform
