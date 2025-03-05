@@ -1,14 +1,13 @@
-package com.example;
-
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.WebServlet;
-
 @WebServlet("/")
 public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        request.getRequestDispatcher("/index.html").forward(request, response);
+        try {
+            System.out.println("Request received at HomeServlet");
+            request.getRequestDispatcher("/index.html").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace(); // Logs the error to console
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error: " + e.getMessage());
+        }
     }
 }
