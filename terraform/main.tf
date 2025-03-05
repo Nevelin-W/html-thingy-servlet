@@ -78,8 +78,7 @@ resource "aws_iam_role" "eb_instance_role" {
 # Attach the correct policy
 resource "aws_iam_role_policy_attachment" "eb_instance_policy_attachment" {
   role       = aws_iam_role.eb_instance_role.name
-  # policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService"  # Updated policy
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkWebTier"
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService"
 }
 
 resource "aws_iam_instance_profile" "eb_instance_profile" {
