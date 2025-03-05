@@ -6,7 +6,7 @@ on:
 
 env:
   AWS_REGION: eu-central-1
-  BUCKET_NAME: servlet-webapp-deployment-phanvvz7
+  BUCKET_NAME: servlet-webapp-deployment-ju0fe9cl
   BEANSTALK_APP_NAME: servlet-webapp
   BEANSTALK_ENV_NAME: servlet-webapp-env
 
