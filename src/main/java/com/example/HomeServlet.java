@@ -1,11 +1,3 @@
-package com.example;
-
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.WebServlet;
-import java.util.logging.Logger;
-
 @WebServlet("/")
 public class HomeServlet extends HttpServlet {
 
@@ -13,23 +5,15 @@ public class HomeServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        // Log request details
+        
         LOGGER.info("Received request: " + request.getRequestURI());
 
-        // Avoid forwarding if already on the homepage (index.html)
-        if (request.getRequestURI().equals("/index.html")) {
-            return; // Do nothing, just return
-        }
-
-        try {
-            // Forwarding the request to index.html (ensure the path is correct)
-            request.getRequestDispatcher("/index.html").forward(request, response);
-        } catch (Exception e) {
-            // Log and send an error if forwarding fails
-            LOGGER.severe("Error forwarding to index.html: " + e.getMessage());
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error forwarding to index.html");
-        }
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
+        
+        PrintWriter out = response.getWriter();
+        out.println("<html><head><title>Test Page</title></head><body>");
+        out.println("<h1>Servlet is Working!</h1>");
+        out.println("</body></html>");
     }
 }
