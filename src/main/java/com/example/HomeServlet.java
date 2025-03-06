@@ -1,3 +1,11 @@
+package com.example;
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.WebServlet;
+import java.util.logging.Logger;
+
 @WebServlet("/")
 public class HomeServlet extends HttpServlet {
 
