@@ -19,7 +19,7 @@ public class HomeServlet extends HttpServlet {
 
         try {
             // Forwarding the request to index.html (ensure the path is correct)
-            request.getRequestDispatcher("index.html").forward(request, response);
+            request.getRequestDispatcher("/index.html").forward(request, response);
         } catch (Exception e) {
             // Log and send an error if forwarding fails
             LOGGER.severe("Error forwarding to index.html: " + e.getMessage());
