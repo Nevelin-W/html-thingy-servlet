@@ -10,17 +10,24 @@
     <servlet>
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>com.example.HomeServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     
-    <!-- Servlet Mapping -->
+    <!-- Servlet Mapping - Map to both /home and root -->
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/home</url-pattern>
     </servlet-mapping>
     
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    
     <!-- Welcome File List -->
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
+        <welcome-file>home</welcome-file>
     </welcome-file-list>
     
 </web-app>
