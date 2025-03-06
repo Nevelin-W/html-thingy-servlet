@@ -18,13 +18,13 @@ public class HomeServlet extends HttpServlet {
         LOGGER.info("Received request: " + request.getRequestURI());
 
         try {
-            // Forwarding the request to index.html (ensure the path is correct)
-            request.getRequestDispatcher("/index.html").forward(request, response);
+            // Redirecting the request to index.html
+            response.sendRedirect("/index.html");
         } catch (Exception e) {
-            // Log and send an error if forwarding fails
-            LOGGER.severe("Error forwarding to index.html: " + e.getMessage());
+            // Log and send an error if redirecting fails
+            LOGGER.severe("Error redirecting to index.html: " + e.getMessage());
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error forwarding to index.html");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error redirecting to index.html");
         }
     }
 }
