@@ -1,34 +1,72 @@
-body {
-    font-family: Arial, sans-serif;
+/* Basic reset to remove default margins and paddings */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    box-sizing: border-box;
 }
 
-.container {
-    width: 80%;
-    margin: 0 auto;
-    text-align: center;
-    padding: 20px;
-}
-
-h1 {
+/* Body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f1f1f1;
     color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
-nav {
-    margin-top: 20px;
+/* Container to center content */
+.container {
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-nav a {
+/* Title */
+h1 {
+    font-size: 2.5rem;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+/* Tagline description */
+.tagline {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Call-to-action button */
+.cta-button {
     text-decoration: none;
+    background-color: #4CAF50;
     color: white;
-    background-color: #007bff;
-    padding: 10px 20px;
-    margin: 0 10px;
-    border-radius: 5px;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
 }
 
-nav a:hover {
-    background-color: #0056b3;
+.cta-button:hover {
+    background-color: #45a049;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .tagline {
+        font-size: 1rem;
+    }
+
+    .cta-button {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
 }
