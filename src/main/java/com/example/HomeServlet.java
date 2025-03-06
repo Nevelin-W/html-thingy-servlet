@@ -14,9 +14,15 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        LOGGER.info("Received request: " + request.getRequestURI());
+        String path = request.getRequestURI();
+        LOGGER.info("Received request: " + path);
 
-        // Redirect instead of forwarding
-        response.sendRedirect("index.html");
+        // Only redirect requests for "/" and not for index.html or other static files
+        if (path.equals("/") || path.equals("/index")) {
+            response.sendRedirect("index.html");
+        } else {
+            // Let Tomcat serve the static file normally
+            getServletContext().getRequestDispatcher(path).forward(request, response);
+        }
     }
 }
