@@ -10,11 +10,7 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
-        // Only forward to index.html if the request is not already for index.html
-        if (request.getRequestURI().equals("/")) {
-            request.getRequestDispatcher("/index.html").forward(request, response);
-        } else {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Page not found.");
-        }
+        // Forwarding the request to index.html
+        request.getRequestDispatcher("/index.html").forward(request, response);
     }
 }
